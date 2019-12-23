@@ -1,0 +1,142 @@
+.top-nav {
+    margin: 0 auto;
+    overflow: hidden;
+    width: 100%;
+    padding: 0;
+    background-color: black;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+.top-nav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.active {
+    background-color: brown;
+    color: white;
+}
+
+.top-nav .icon {
+    display: none;
+    color: white;
+    height: 49px;
+    background-color: black;
+    font-size: 18px;
+    border: 0;
+    width: 55%;
+    text-align: center;
+}
+
+.log-btn {
+    float: right;
+    background-color: darkslategrey;
+    width: 100px;
+}
+
+.log-btn a {
+    width: 100%;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding-right: 4px;
+}
+
+.drop-btn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.top-nav a:hover,
+.icon:hover,
+.dropdown:hover,
+.drop-btn:hover,
+.dropdown-content button[type = submit]:hover{
+    background-color: red;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: fixed;
+    text-align: center;
+    min-width: 100px;
+    width: inherit;
+    z-index: 1;
+}
+
+.dropdown-content a,
+.dropdown-content button[type = submit]{
+    color: white;
+    padding: 12px 26px;
+    text-decoration: none;
+    background-color: black;
+    width: 100%;
+    display: block;
+    border: 0;
+    text-align: center;
+}
+
+
+.dropdown:hover .dropdown-content {
+    margin-top: 45px;
+    display: block;
+    z-index: 1;
+}
+
+@media screen and (max-width: 800px) {
+    .top-nav a:not(:first-child), .dropdown .drop-btn {
+        display: none;
+    }
+
+
+    .top-nav .icon {
+        float: right;
+        display: block;
+    }
+
+    .dropdown-content, .dropdown:hover .dropdown-content {
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    .top-nav.responsive {
+        position: relative;
+    }
+
+    .top-nav.responsive .icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .top-nav.responsive a{
+        float: none;
+        display: block;
+        text-align: left;
+    }
+
+    .top-nav.responsive .dropdown {
+        float: none;
+    }
+
+    .top-nav.responsive .dropdown-content {
+        position: relative;
+    }
+
+    .top-nav.responsive .dropdown .drop-btn {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+}

@@ -1,0 +1,86 @@
+
+header {
+    position: relative;
+}
+
+/* The main page header image*/
+.headerImage {
+    width: 100%;
+    height: 250px;
+}
+
+.avContainer {
+    position: absolute;
+    width: 500px;
+    height: 200px;
+    margin-left: 10px;
+    top: 50px;
+
+}
+
+.user-name{
+    width: 50%;
+    float: left;
+    background-color: brown;
+    top: 40%;
+    margin-left: 4px;
+    position: relative;
+    padding: 10px 0 10px 16px;
+    border: 2px solid black;
+    border-radius: 20px;
+    opacity: .8;
+}
+.profile-img {
+    width: 45%;
+    float: left;
+    height: 200px;
+    position: relative;
+}
+
+.avatar {
+    width: 100%;
+    height: inherit;
+    border: 4px solid black;
+    border-radius: 30px;
+    float: left;
+}
+
+.overlay {
+    bottom: 0;
+    position: absolute;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    text-align: center;
+    padding: 15px 0 15px 0;
+    border-radius: 0 0 30px 30px;
+    transition: 0.5s ease;
+    opacity: 0;
+}
+
+.overlay a {
+    color: white;
+    text-decoration: none;
+    padding: 16px 40px 16px 40px;
+    border-radius: 0 0 30px 30px;
+    font-size: 24px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+.overlay:hover,
+.avContainer:hover {
+    opacity: 1;
+
+}
+
+header h2 {
+
+    left: 10px;
+
+    color: white;
+    display: inline-block;
+    text-shadow: 0 0 5px black;
+
+}

@@ -1,0 +1,119 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.main-container {
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 25px;
+    background-color: #f2f2f2;
+}
+
+.tiny-header {
+    margin: 0 auto;
+    width: 100%;
+    height: 10%;
+    text-align: center;
+    padding: 20px;
+    background-color: #035a8c;
+}
+
+.permission {
+    border: 2px black solid;
+    border-radius: 15px;
+    box-shadow: 2px 10px 2px black;
+    margin-top: 10px;
+    color: brown;
+    background: lavenderblush;
+    text-align: center;
+    padding: 10px
+}
+
+.book-container {
+
+    float: left;
+}
+
+.book-img {
+    width: 25%;
+    padding: 40px 10px 10px 10px;
+    float: left;
+}
+
+.book-img img {
+    width: 100%;
+    border-radius: 25px;
+
+}
+
+.book-description {
+    width: 75%;
+    padding: 20px;
+    float: left;
+    text-align: left;
+    border-left: 1px solid black;
+}
+
+.book-description h2 {
+    margin: 10px 0 20px 0;
+}
+
+.book-description span {
+    color: dimgrey;
+}
+
+.book-description p {
+    margin: 10px 0 25px 0;
+    line-height: 25px;
+}
+
+.book-table-info {
+    margin: 0;
+}
+
+.book-table-info th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+.comments {
+    clear: both;
+    width: 100%;
+    margin: 0 auto;
+}
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical
+}
+
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}

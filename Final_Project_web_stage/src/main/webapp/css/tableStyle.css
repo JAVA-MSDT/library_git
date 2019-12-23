@@ -1,0 +1,71 @@
+
+.container {
+    width: 100%;
+    padding: 40px 0 40px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    clear: both;
+
+}
+
+.tableContainer {
+    overflow-x: auto;
+    width: 95%;
+    box-shadow: 10px 10px 5px gray;
+    border-radius: 0 10px 12px 10px;
+}
+
+.tableList {
+    border: 2px solid black;
+    padding: 3px;
+    background-color: black;
+    border-radius: 5px;
+    width: 100%;
+
+}
+
+.tableList td, th {
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px 8px 5px 8px;
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+.tableList th {
+    background-color: burlywood;
+}
+
+.tableList tr:nth-child(even) {
+    background-color: wheat;
+}
+
+.tableList tr:nth-child(odd) {
+    background-color: antiquewhite;
+}
+
+.tableList tr:hover {
+    background-color: black;
+    color: wheat;
+}
+
+.edit, .cancel {
+    height: auto;
+    width: 100%;
+    padding: 4px;
+    border-radius: 5px;
+    background-color: darkslategrey;
+    color: white;
+    border: 1px solid black;
+    box-shadow: 1px 1px black;
+    display: block;
+    text-decoration: none;
+}
+
+.edit:hover, .cancel:hover {
+    background-color: white;
+    color: black;
+    box-shadow: 1px 1px white;
+
+}

@@ -1,0 +1,18 @@
+.book-row{
+    border: 2px solid black;
+}
+.image-col{
+    padding: 10px;
+}
+
+.info-col{
+    padding: 20px;
+}
+
+.info-col-inner{
+    text-align: left;
+}
+
+.button-col{
+    padding: 10px;
+}

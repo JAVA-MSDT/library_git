@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns:ivy="antlib:org.apache.ivy.ant"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         name="Final_Project_web_stage_rest"
+         xsi:schemaLocation="antlib:org.apache.ivy.ant ">
+
+    <description>
+        Final Project
+    </description>
+
+    <!-- Property file -->
+    <property file="build.properties"/>
+
+    <!-- <ivy:retrieve sync="true" file="ivy.xml"/>-->
+
+    <!-- =================================== EXTERNAL LIBRARY CLASSPATH =================================== -->
+    <path id="classpath">
+        <fileset dir="${basedir}/">
+            <include name="${src.lib.dir}/*.jar"/>
+            <exclude name="${src.lib.dir}/*sources.jar"/>
+            <exclude name="${src.lib.dir}/*javadoc.jar"/>
+        </fileset>
+    </path>
+
+    <!-- =================================== INITIALIZING =================================== -->
+    <target name="prepare">
+        <!-- ============ Running directories ============ -->
+        <mkdir dir="${target.dir}"/>
+        <mkdir dir="${lib.target.dir}"/>
+        <mkdir dir="${classes.target.dir}"/>
+        <mkdir dir="${db.migrate.target.dir}"/>
+        <mkdir dir="${properties.target.dir}"/>
+
+        <!-- ============ Testing directories ============ -->
+        <mkdir dir="${test.target.dir}"/>
+
+        <!-- ============ JAR directories ============ -->
+        <mkdir dir="${jar.target.dir}"/>
+
+        <!-- ============ WAR directories ============ -->
+        <mkdir dir="${webapp.target.dir}"/>
+    </target>
+
+    <!-- =================================== CLEANING THE PROJECT =================================== -->
+
+    <target name="clean"
+            description="Cleaning the Output directory">
+    	<!--   <delete dir="${target.dir}"/> -->
+        <delete dir="${report.dir}"/>
+    </target>
+
+    <!-- =================================== COMPILING =================================== -->
+<!-- resolve-dependencies, -->
+    <target name="compile"
+            description="Compiling the Source Code and put it in the output directory"
+            depends="prepare, copy-resources">
+
+        <delete dir="out"/> <!-- To prevent IntellIj from creating out folder -->
+        <javac srcdir="${src.dir}"
+               destdir="${classes.target.dir}"
+               classpathref="classpath"
+               includeantruntime="false"/>
+        <echo message="Compile Finished"/>
+    </target>
+
+    <target name="compile-test"
+            description="Compiling the Test Code and put it in the output directory"
+            depends="compile">
+
+        <delete dir="out"/> <!-- To prevent IntellIj from creating out folder -->
+        <javac srcdir="${test.src.dir}"
+               destdir="${test.target.dir}"
+               classpathref="classpath"
+               includeantruntime="false">
+            <classpath>
+                <pathelement location="${classes.target.dir}"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <!-- =================================== COPY DEPENDENCIES =================================== -->
+    <target name="copy-dependencies">
+        <copy todir="${lib.target.dir}">
+            <fileset dir="${src.lib.dir}" includes="**/*.jar" excludes="**/*sources.jar, **/*javadoc.jar"/>
+        </copy>
+    </target>
+
+    <target name="copy-resources">
+        <copy todir="${classes.target.dir}">
+            <fileset dir="${resources.dir}"/>
+        </copy>
+    </target>
+
+    <target name="copy-webapp">
+        <copy todir="${webapp.target.dir}">
+            <fileset dir="${web.dir}"/>
+        </copy>
+    </target>
+
+    <target name="copy-webapp-classes" depends="copy-webapp, compile">
+
+        <copy todir="${webapp.target.classes.dir}">
+            <fileset dir="${classes.target.dir}"/>
+        </copy>
+
+        <copy todir="${webapp.target.lib.dir}">
+            <fileset dir="${src.lib.dir}"/>
+        </copy>
+    </target>
+
+    <!-- =================================== CREATING ONE BIG JAR FOR ALL THE DEPENDENCIES =================================== -->
+    <target name="zip-dependencies">
+        <jar file="${lib.target.dir}/dependencies-all.jar">
+            <zipgroupfileset dir="${src.lib.dir}">
+                <include name="**/*.jar"/>
+                <exclude name="**/*sources.jar, **/*javadoc.jar"/>
+            </zipgroupfileset>
+        </jar>
+    </target>
+    <!-- =================================== BUILDING JAR =================================== -->
+
+    <target name="buildJar"
+            description="Building jar file"
+            depends="resolve-dependencies, compile, zip-dependencies">
+
+        <jar jarfile="${jar.target.dir}/${projectName}.jar" basedir="${classes.target.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="com.serenity.view.Main"/>
+                <!-- <attribute name="Class-Path" value="lib"/>-->
+            </manifest>
+            <zipfileset src="${lib.target.dir}/dependencies-all.jar"
+                        excludes="META-INF/*.SF"/>
+        </jar>
+    </target>
+
+    <!-- =================================== RUNNING =================================== -->
+
+    <target name="run" depends="compile">
+        <java fork="true" classname="${Main-Class}">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${classes.target.dir}"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- =================================== TOMCAT =================================== -->
+
+    <target name="war-target" depends="copy-webapp-classes">
+        <war destfile="${target.dir}/${war.file}" needxmlfile="false">
+            <fileset dir="${webapp.target.dir}"/>
+        </war>
+    </target>
+
+    <target name="deploy-target" depends="clean, war-target">
+        <copy file="${target.dir}/${war.file}" todir="${tomcat.deployment}"/>
+        <copy todir="${tomcat.deployment}/${projectName}">
+            <fileset dir="${webapp.target.dir}"/>
+        </copy>
+    </target>
+
+    <target name="start-target">
+        <exec executable="${tomcat.bin}/startup.bat"/>
+    </target>
+
+    <target name="stop-target">
+        <exec executable="${tomcat.bin}/shutdown.bat"/>
+    </target>
+
+    <!-- =================================== IVY =================================== -->
+    <!-- ivy start -->
+    <target name="resolve-dependencies" description="retrieve dependencies with ivy">
+        <echo message="Getting dependencies..."/>
+        <ivy:retrieve/>
+    </target>
+    <!-- =================================== TESTING =================================== -->
+    <target name="Run-Test" depends="compile-test">
+        <mkdir dir="${report.dir}"/>
+        <mkdir dir="${report.xml.style.dir}"/>
+        <junit fork="yes" printsummary="yes" haltonfailure="yes" showoutput="yes">
+            <classpath>
+                <pathelement location="${classes.target.dir}"/>
+                <pathelement location="${test.target.dir}"/>
+
+                <fileset dir="${src.lib.dir}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+
+            <batchtest fork="yes" todir="${report.xml.style.dir}">
+                <fileset dir="${test.src.dir}">
+                    <include name="**/*Test*.java"/>
+                </fileset>
+            </batchtest>
+            <formatter type="xml"/>
+        </junit>
+    </target>
+
+</project>

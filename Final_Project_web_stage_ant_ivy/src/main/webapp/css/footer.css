@@ -1,0 +1,51 @@
+
+.footer {
+    clear: both;
+    background-color: brown;
+    padding: 10px;
+    margin-top: 10px;
+    width: auto;
+    bottom: 0;
+    left: 0;
+    position: relative;
+}
+
+.footMenu,
+.socialMedia {
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+
+.footer li {
+    list-style: none;
+    padding-bottom: 8px;
+}
+
+.footer a {
+    color: white;
+}
+
+.footer a:hover {
+    color: aqua;
+}
+
+.copyright {
+    clear: both;
+    text-align: center;
+    color: white;
+}
+
+.profileFooter {
+    background-color: brown;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    clear: both;
+}
+
+.profileFooter a {
+    color: aqua;
+    padding-left: 5px;
+}
